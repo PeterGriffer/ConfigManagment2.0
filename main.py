@@ -12,7 +12,7 @@ from urllib.parse import urlparse
 from typing import Dict, Any
 
 def load_configuration(config_file: str = "config.json") -> Dict[str, Any]:
-    """Загружает конфигурацию из JSON файла"""
+    
     try:
         if not os.path.exists(config_file):
             raise FileNotFoundError(f"Конфигурационный файл '{config_file}' не найден")
@@ -30,7 +30,7 @@ def load_configuration(config_file: str = "config.json") -> Dict[str, Any]:
         raise RuntimeError(f"Неожиданная ошибка при загрузке конфигурации: {e}")
 
 def validate_configuration(config: Dict[str, Any]) -> None:
-    """Валидирует конфигурационные параметры"""
+    
     required_params = ["package_name", "repository_url", "test_repository_mode", "output_filename", "ascii_tree_output"]
     
     for param in required_params:
@@ -49,7 +49,7 @@ def validate_configuration(config: Dict[str, Any]) -> None:
             raise ValueError("URL репозитория должен быть непустой строкой")
 
 def create_default_config(config_file: str = "config.json") -> None:
-    """Создает файл конфигурации с параметрами по умолчанию"""
+    
     default_config = {
         "package_name": "example-package",
         "repository_url": "https://github.com/example/repo",
@@ -65,7 +65,7 @@ def create_default_config(config_file: str = "config.json") -> None:
     print(f"Создан файл конфигурации по умолчанию: {config_file}")
 
 def merge_configs(file_config: Dict[str, Any], cli_args: argparse.Namespace) -> Dict[str, Any]:
-    """Объединяет конфигурацию из файла и аргументов CLI"""
+   
     config = file_config.copy()
    
     if cli_args.package_name:
@@ -90,14 +90,13 @@ def merge_configs(file_config: Dict[str, Any], cli_args: argparse.Namespace) -> 
     return config
 
 def display_config_parameters(config: Dict[str, Any]) -> None:
-    """Выводит все параметры конфигурации в формате ключ-значение"""
     print("=== Конфигурационные параметры ===")
     for key, value in config.items():
         print(f"{key}: {value}")
     print("==================================")
 
 def setup_cli_parser() -> argparse.ArgumentParser:
-    """Настраивает парсер аргументов командной строки"""
+    
     parser = argparse.ArgumentParser(
         description="Визуализатор графа зависимостей пакетов - Этап 1",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -132,7 +131,7 @@ def setup_cli_parser() -> argparse.ArgumentParser:
     return parser
 
 def main():
-    """Главная функция приложения"""
+  
     parser = setup_cli_parser()
     args = parser.parse_args()
     
